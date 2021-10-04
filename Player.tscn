@@ -1,0 +1,62 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Player.gd" type="Script" id=1]
+[ext_resource path="res://assets/character1.png" type="Texture" id=2]
+[ext_resource path="res://assets/character2.png" type="Texture" id=3]
+[ext_resource path="res://particles/SmokeParticles.tscn" type="PackedScene" id=4]
+[ext_resource path="res://assets/character-shadow.png" type="Texture" id=5]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 2 ), ExtResource( 3 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 2 ) ],
+"loop": true,
+"name": "jumping",
+"speed": 5.0
+} ]
+
+[sub_resource type="CapsuleShape2D" id=2]
+radius = 6.89084
+height = 23.0163
+
+[node name="Player" type="KinematicBody2D"]
+position = Vector2( 126.341, 71.2489 )
+collision_layer = 4
+collision_mask = 8
+script = ExtResource( 1 )
+speed = 120
+fall_speed = 150.0
+death_duration = 0.2
+
+[node name="character-shadow" type="Sprite" parent="."]
+visible = false
+texture = ExtResource( 5 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+position = Vector2( 0.523, -23.7706 )
+frames = SubResource( 1 )
+frame = 1
+playing = true
+
+[node name="SmokeParticles" parent="." instance=ExtResource( 4 )]
+position = Vector2( 0, -14.2761 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0.102559, -19.3559 )
+shape = SubResource( 2 )
+
+[node name="LeftFoot" type="Node2D" parent="."]
+position = Vector2( -3.55682, -0.451099 )
+
+[node name="RightFoot" type="Node2D" parent="."]
+position = Vector2( 2.44318, -0.451099 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+current = true
+zoom = Vector2( 0.5, 0.5 )
+
+[node name="Tween" type="Tween" parent="."]

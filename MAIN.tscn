@@ -1,0 +1,101 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://tilemap/ground_tileset.tres" type="TileSet" id=1]
+[ext_resource path="res://Player.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Map.gd" type="Script" id=3]
+[ext_resource path="res://tilemap/lava_tileset.tres" type="TileSet" id=4]
+[ext_resource path="res://GameplayController.gd" type="Script" id=5]
+
+[sub_resource type="DynamicFontData" id=1]
+font_path = "res://assets/fonts/munro.ttf"
+
+[sub_resource type="DynamicFont" id=2]
+size = 24
+font_data = SubResource( 1 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 32
+font_data = SubResource( 1 )
+
+[sub_resource type="DynamicFont" id=4]
+size = 18
+font_data = SubResource( 1 )
+
+[node name="Game" type="Node2D"]
+script = ExtResource( 5 )
+
+[node name="Map" type="Node2D" parent="."]
+script = ExtResource( 3 )
+
+[node name="LavaTileMap" type="TileMap" parent="Map"]
+tile_set = ExtResource( 4 )
+cell_size = Vector2( 16, 16 )
+collision_layer = 2
+collision_mask = 2
+format = 1
+
+[node name="GroundTileMap" type="TileMap" parent="Map"]
+tile_set = ExtResource( 1 )
+cell_size = Vector2( 16, 16 )
+format = 1
+tile_data = PoolIntArray( 1441803, 0, 8, 1441804, 0, 10, 1441805, 0, 10, 1441806, 0, 10, 1441807, 0, 11, 1507339, 0, 65544, 1507340, 0, 131081, 1507341, 0, 131081, 1507342, 0, 131081, 1507343, 0, 131083, 1572875, 0, 65544, 1572876, 0, 131081, 1572877, 0, 131081, 1572878, 0, 131081, 1572879, 0, 131083, 1638411, 0, 196616, 1638412, 0, 196617, 1638413, 0, 196617, 1638414, 0, 196617, 1638415, 0, 196619 )
+
+[node name="Player" parent="Map" instance=ExtResource( 2 )]
+position = Vector2( 215.246, 384.88 )
+
+[node name="DebugMapUpdateRect" type="ReferenceRect" parent="Map"]
+visible = false
+margin_right = 40.0
+margin_bottom = 40.0
+border_color = Color( 0, 0.0862745, 1, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PlayerStartPosition" type="Position2D" parent="Map"]
+position = Vector2( 215.246, 384.88 )
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="AliveTime" type="Label" parent="UI"]
+margin_right = 960.0
+margin_bottom = 14.0
+custom_fonts/font = SubResource( 2 )
+text = "Time alive:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RestartBox" type="VBoxContainer" parent="UI"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -113.0
+margin_top = -20.0
+margin_right = 113.0
+margin_bottom = 20.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RestartLabel" type="Label" parent="UI/RestartBox"]
+margin_right = 226.0
+margin_bottom = 36.0
+custom_fonts/font = SubResource( 3 )
+text = "Press R to restart"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LifetimeLabel" type="Label" parent="UI/RestartBox"]
+margin_top = 40.0
+margin_right = 226.0
+margin_bottom = 61.0
+custom_fonts/font = SubResource( 4 )
+text = "You survived for 0 seconds"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
